@@ -21,7 +21,7 @@ const createMessageElement = (content, ...classes) => {
 }
 
 // Liste des mots-clés liés à l'immobilier
-const immobilierKeywords = ["maison", "appartement", "terrain", "achat", "vente", "loyer", "hypothèque", "agence immobilière", "investissement", "propriété", "Afrique", "monde"];
+const immobilierKeywords = ["maison", "appartement", "terrain", "achat", "vente", "loyer", "hypothèque", "agence immobilière", "investissement", "propriété", "agence immobilière en Côte d'Ivoire", "prix de terrain en Côte d'Ivoire"];
 
 // Fonction pour vérifier si un message parle d'immobilier
 const isRealEstateQuestion = (message) => {
