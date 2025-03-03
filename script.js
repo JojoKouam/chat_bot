@@ -33,7 +33,7 @@ const generateBotResponse = async (incomingMessageDiv) =>{
     const messageElement= incomingMessageDiv.querySelector('.message-text');
     // Vérifier si la question parle bien d'immobilier avant d'envoyer à l'API
     if (!isRealEstateQuestion(userData.message)) {
-        messageElement.innerText = "Je suis spécialisé en immobilier. Posez-moi des questions sur l'achat, la vente ou la location de biens !";
+        messageElement.innerText = "Je suis spécialisé en immobilier. Posez-moi des questions sur l'achat, la vente ou la location de biens prix!";
         incomingMessageDiv.classList.remove("thinking");
         return;
     }
