@@ -1,9 +1,8 @@
-// on veut voir le message ecrit s'afficher lorsqu'on presse le boutton
 const messageInput= document.querySelector(".message-input");
 const chatBody = document.querySelector(".chatbot-body");
 const sendMessage =document.querySelector("#send-message");
 
-// Epe de l'Api
+// Configuration de l'Api
 API_KEY = "AIzaSyD0mAocoK8dbVtLDv_bk6a37OHBozKZftA";
 const API_URL=`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
@@ -21,7 +20,7 @@ const createMessageElement = (content, ...classes) => {
 }
 
 // Liste des mots-clés liés à l'immobilier
-const immobilierKeywords = ["maison", "appartement", "terrain", "achat", "vente", "loyer", "hypothèque", "agence immobilière", "investissement", "propriété", "agence immobilière en Côte d'Ivoire", "prix de terrain en Côte d'Ivoire"];
+const immobilierKeywords = ["immobilier" ,"maison", "appartement", "terrain", "achat", "vente", "loyer", "hypothèque", "agence immobilière", "investissement", "propriété", "agence immobilière en Côte d'Ivoire", "prix de terrain en Côte d'Ivoire","bien foncier", "Le prix de l'immobilier dans les villes de la Côte d'Ivoire","Les agences immobilières dans les villes de la Côte d'Ivoire", "immobilier dans les villes du monde"];
 
 // Fonction pour vérifier si un message parle d'immobilier
 const isRealEstateQuestion = (message) => {
@@ -31,9 +30,10 @@ const isRealEstateQuestion = (message) => {
 // générer une réponse du chat avec Api
 const generateBotResponse = async (incomingMessageDiv) =>{
     const messageElement= incomingMessageDiv.querySelector('.message-text');
+    
     // Vérifier si la question parle bien d'immobilier avant d'envoyer à l'API
     if (!isRealEstateQuestion(userData.message)) {
-        messageElement.innerText = "Je suis spécialisé en immobilier. Posez-moi des questions sur l'achat, la vente ou la location de biens prix!";
+        messageElement.innerText = "Salut je suis spécialisé en immobilier. Posez-moi des questions sur l'achat, la vente ou la location de biens prix!";
         incomingMessageDiv.classList.remove("thinking");
         return;
     }
@@ -65,38 +65,6 @@ const generateBotResponse = async (incomingMessageDiv) =>{
     }
 };
 
-// on va revenir dessus pour specidier le message de notre ia
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         contents: [{
-    //             parts:[{text: userData.message }]
-    //             }]
-    //     }),
-
-    // }
-    // envoyer la requete a l'api pour generer une pensée
-    // try {
-    //     const response = await fetch(API_URL, requestOptions);
-    //     const data = await response.json();
-           
-    //     if (!isRealEstateQuestion(userData.message)) {
-    //         messageElement.innerText = "Je suis spécialisé en immobilier. Posez-moi des questions sur l'achat, la vente ou la location de biens !";
-    //         incomingMessageDiv.classList.remove("thinking");
-    //         return;
-    //     }
-        // afficher la pensée du chatbot
-//         const apiResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
-//         messageElement.innerText= apiResponse;
-//     } catch (error) {
-//         console.error('Error:', error);
-//         messageElement.innerText = "Désolé, une erreur est survenue.";
-// }finally {
-//     incomingMessageDiv.classList.remove("thinking");
-// }}
 
 
 // fonction qui affiche le message de l'autre utilisateur
@@ -119,11 +87,6 @@ const handleOutgoingMessage= (e) => {
     
     messageInput.value = ""; // Effacer le champ après l'envoi
 
-    // Afficher l'indicateur de pensée du bot
-    
-    // outgoingMessageDiv.querySelector(".message-text").textContent = userData.message;
-    // chatBody.appendChild(outgoingMessageDiv);
-
     // fonction qui affiche la pensée du chatbot
 setTimeout(()=>{
     const messageContent = `<div class="message bot-message">
@@ -141,16 +104,12 @@ setTimeout(()=>{
             </div>`;
     const incomingMessageDiv = createMessageElement(messageContent,"bot-message", "thinking");
     chatBody.appendChild(incomingMessageDiv );
-    // generer la reponsz de chat avect gemini 
+    // generer la reponse de chat avec gemini 
     generateBotResponse(incomingMessageDiv);
     
-},600)
+},500)
 };
 
-// fonction qui affiche la pensée du chatbot
-setTimeout(()=>{
-
-})
 
 // fonction qui affiche le message de notre utilisateur
 messageInput.addEventListener("keydown", (e) => {
